@@ -2,15 +2,22 @@ Package: miNEXT.3D
 Type: Package
 Title: Mixture Interpolation and Extrapolation for three dimensions of diversity
 Version: 0.0.1
-Author: Song Wun, Shih
-Maintainer: The package maintainer <az860925@gmail.com>
+Author: Anne Chao [aut, cre], KaiHsiang Hu [ctb]
+Maintainer: KaiHsiang Hu <river19951224@gmail.com>
+Authors@R: 
+  c(person("Anne", 
+           "Chao", 
+           role = c("aut","cre"),
+           email = "chao@stat.nthu.edu.tw"),
+    person("KaiHsiang", 
+           "Hu", 
+           role = "ctb",
+           email = "river19951224@gmail.com"))
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+License: GPL (>= 3)
+Depends: R (>= 4.0)
 Encoding: UTF-8
-LazyData: true
-RoxygenNote: 7.2.0
-LazyLoad: yes
 Imports:
     reshape2,
     Rcpp,
@@ -21,6 +28,8 @@ Imports:
     future.apply,
     phytools,
     iNEXT.3D
-LinkingTo:
-    Rcpp
-Remotes: AnneChao/iNEXT.3D
+BugReports: https://github.com/KaiHsiangHu/miNEXT.3D/issues
+LazyData: true
+RoxygenNote: 7.2.3
+LazyLoad: yes
+LinkingTo: Rcpp
