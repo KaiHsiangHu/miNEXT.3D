@@ -84,7 +84,7 @@ miNEXT3D = function(data, diversity, q = c(0,1,2), knots = 11, size = NULL, nboo
     est = RTD.est(data, knots = knots, size = size, q = q, conf = conf, nboot = nboot)
 
     m_v = est$m.v
-    m_v[m_v == 0] = 1 #避免iNEXT3D跑 m = 0的情況
+    m_v[m_v == 0] = 1 #�?免iNEXT3D�? m = 0�?情�??
 
     est.ori = iNEXT3D(apply(data, 1, as.vector)[1,], diversity = 'TD', q = q,
                       size = m_v[,1], nboot = nboot, conf = conf)
@@ -95,7 +95,7 @@ miNEXT3D = function(data, diversity, q = c(0,1,2), knots = 11, size = NULL, nboo
     est = RPD.est(data, PDtree = PDtree, PDreftime = PDreftime,
                   knots = knots, size = size, q = q, conf = conf, nboot = nboot)
     m_v = est$m.v
-    m_v[m_v == 0] = 1 #避免iNEXT3D跑 m = 0的情況
+    m_v[m_v == 0] = 1 #�?免iNEXT3D�? m = 0�?情�??
     est.ori = iNEXT3D(apply(data, 1, as.vector)[1,], diversity = 'PD',PDtree = PDtree, q = q,
                       size = m_v[,1], nboot = nboot, conf = conf)
     est.trans = iNEXT3D(apply(data, 1, as.vector)[2,], diversity = 'PD',PDtree = PDtree, q = q,
@@ -105,7 +105,7 @@ miNEXT3D = function(data, diversity, q = c(0,1,2), knots = 11, size = NULL, nboo
       est = RFD.est(data, FDdistM = FDdistM, FDtau = FDtau,
                     knots = knots, size = size, q = q, conf = conf, nboot = nboot)
       m_v = est$m.v
-      m_v[m_v == 0] = 1 #避免iNEXT3D跑 m = 0的情況
+      m_v[m_v == 0] = 1 #�?免iNEXT3D�? m = 0�?情�??
       est.ori = iNEXT3D(apply(data, 1, as.vector)[1,], diversity = 'FD',FDdistM = FDdistM, q = q,
                         size = m_v[,1], nboot = nboot, conf = conf)
       est.trans = iNEXT3D(apply(data, 1, as.vector)[2,], diversity = 'FD',FDdistM = FDdistM, q = q,
@@ -114,7 +114,7 @@ miNEXT3D = function(data, diversity, q = c(0,1,2), knots = 11, size = NULL, nboo
       est = RFD.singletau.est(data, FDdistM = FDdistM, tau = FDtau,
                               knots = knots, size = size, q = q, conf = conf, nboot = nboot)
       m_v = est$m.v
-      m_v[m_v == 0] = 1 #避免iNEXT3D跑 m = 0的情況
+      m_v[m_v == 0] = 1 #�?免iNEXT3D�? m = 0�?情�??
       est.ori = iNEXT3D(apply(data, 1, as.vector)[1,], diversity = 'FD', FDdistM = FDdistM, q = q,
                         FDtype = FDtype, FDtau = FDtau,
                         size = m_v[,1], nboot = nboot, conf = conf)
@@ -155,28 +155,28 @@ miNEXT3D = function(data, diversity, q = c(0,1,2), knots = 11, size = NULL, nboo
 
     if(diversity == 'TD'){
       est.final = select(est.final,Order.q,m1,m2,prop.v,qmiNEXT_TD,LCL,UCL,points,linetype,Assemblage)
-      tmp = est.ori$iNextEst$size_based
+      tmp = est.ori$TDiNextEst$size_based
       type = tmp$Method
       type[type == 'Observed'] = "Rarefaction"
       est.ori.df = data.frame(Order.q = tmp$Order.q,
                               m1 = tmp$m,
                               prop.v = round(tmp$m/sum(data[,1])*100,3),
-                              qmiNEXT_TD = tmp$qD,
-                              LCL = tmp$qD.LCL,
-                              UCL = tmp$qD.UCL,
+                              qmiNEXT_TD = tmp$qTD,
+                              LCL = tmp$qTD.LCL,
+                              UCL = tmp$qTD.UCL,
                               points = tmp$Method,
                               linetype = type,
                               Assemblage = colnames(data)[1])
 
-      tmp = est.trans$iNextEst$size_based
+      tmp = est.trans$TDiNextEst$size_based
       type = tmp$Method
       type[type == 'Observed'] = "Rarefaction"
       est.trans.df = data.frame(Order.q = tmp$Order.q,
                                 m2 = tmp$m,
                                 prop.v = round(tmp$m/sum(data[,1])*100,3),
-                                qmiNEXT_TD = tmp$qD,
-                                LCL = tmp$qD.LCL,
-                                UCL = tmp$qD.UCL,
+                                qmiNEXT_TD = tmp$qTD,
+                                LCL = tmp$qTD.LCL,
+                                UCL = tmp$qTD.UCL,
                                 points = tmp$Method,
                                 linetype = type,
                                 Assemblage = colnames(data)[2])
@@ -209,28 +209,28 @@ miNEXT3D = function(data, diversity, q = c(0,1,2), knots = 11, size = NULL, nboo
                                 Assemblage = colnames(data)[2])
     }else if(diversity == 'FD' & FDtype == 'AUC'){
       est.final = select(est.final,Order.q,m1,m2,prop.v,qmiNEXT_FD,LCL,UCL,points,linetype,Assemblage)
-      tmp = est.ori$AUCiNextEst$size_based
+      tmp = est.ori$FDiNextEst$size_based
       type = tmp$Method
       type[type == 'Observed'] = "Rarefaction"
       est.ori.df = data.frame(Order.q = tmp$Order.q,
                               m1 = tmp$m,
                               prop.v = round(tmp$m/sum(data[,1])*100,3),
-                              qmiNEXT_FD = tmp$qAUC,
-                              LCL = tmp$qAUC.LCL,
-                              UCL = tmp$qAUC.UCL,
+                              qmiNEXT_FD = tmp$qFD,
+                              LCL = tmp$qFD.LCL,
+                              UCL = tmp$qFD.UCL,
                               points = tmp$Method,
                               linetype = type,
                               Assemblage = colnames(data)[1])
 
-      tmp = est.trans$AUCiNextEst$size_based
+      tmp = est.trans$FDiNextEst$size_based
       type = tmp$Method
       type[type == 'Observed'] = "Rarefaction"
       est.trans.df = data.frame(Order.q = tmp$Order.q,
                                 m2 = tmp$m,
                                 prop.v = round(tmp$m/sum(data[,1])*100,3),
-                                qmiNEXT_FD = tmp$qAUC,
-                                LCL = tmp$qAUC.LCL,
-                                UCL = tmp$qAUC.UCL,
+                                qmiNEXT_FD = tmp$qFD,
+                                LCL = tmp$qFD.LCL,
+                                UCL = tmp$qFD.UCL,
                                 points = tmp$Method,
                                 linetype = type,
                                 Assemblage = colnames(data)[2])
@@ -344,7 +344,7 @@ ggmiNEXT3D = function(out){
   } #把tau拔掉
   colnames(final)[3] = "miNEXT"
   data.sub = final[which(final$points == "Observed"),]
-  ## 線連接起來
+  ## 線連接�?�?
   tmp = dplyr::filter(final,points == "Observed")
   if(nrow(tmp) != 0){
     tmp$linetype = "Extrapolation"
@@ -390,7 +390,7 @@ ggmiNEXT3D = function(out){
 
 
   com_final = rbind(dplyr::filter(final,Order.q == 0,Assemblage == "Mixture"),q0_ana_clean)
-  ## 線連接起來
+  ## 線連接�?�?
   tmp = dplyr::filter(com_final,points == "Observed")
   if(nrow(tmp) != 0){
     tmp$linetype = "Extrapolation"
